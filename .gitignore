@@ -1,0 +1,7 @@
+README.txt
+__pycache__/
+/env/
+*.env
+/.ipynb_checkpoints/
+*copy.txt
+/python/

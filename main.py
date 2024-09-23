@@ -3,8 +3,10 @@
 import getopt
 import sys
 import datetime
-import os.path
 import json
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 from get_linkedin_data import *
 
@@ -33,13 +35,9 @@ if __name__ == '__main__':
         print("\n Process start")
         readfile(sys.argv[1:])
         
-        
-        #reading LinkedIn credential json file
-        cred_file = open("./python/linkedin_cred.json", 'r')
-        cred_json = json.load(cred_file)
 
-        access_token = cred_json["ACCESS_TOKEN"]
-        account_id = cred_json["ACCOUNT_ID"]
+        access_token = os.getenv("ACCESS_TOKEN")
+        account_id = os.getenv("ACCOUNT_ID")
 
         #call the LinkedIn API query function (i.e get_linkedin_campaign_data)
         ln_campaign_df = get_campaigns_list(access_token,account_id)
@@ -54,7 +52,7 @@ if __name__ == '__main__':
             campaign_analytics = pd.DataFrame()
 
         print("\n campaigns analytics :\n",campaign_analytics)
-        
+
         print("\n Process End \n")
     except:
         print("\n Process Failed !! ", sys.exc_info())
